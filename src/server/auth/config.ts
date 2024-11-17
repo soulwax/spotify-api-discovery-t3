@@ -68,7 +68,14 @@ export const authConfig = {
     decode: async ({ secret, token }) => {
       if (!token) return null;
       try {
-        return jwt.verify(token, secret);
+        return jwt.verify(token, secret); // Error: 
+        /*
+        "secret": No overload matches this call.
+        The last overload gave the following error.
+        Argument of type 'string | string[]' is not assignable to parameter of type 'Buffer<ArrayBufferLike> | Secret | JsonWebKeyInput | PublicKeyInput | GetPublicKeyOrSecret'.
+        Type 'string[]' is not assignable to type 'Buffer<ArrayBufferLike> | Secret | JsonWebKeyInput | PublicKeyInput | GetPublicKeyOrSecret'.
+        Type 'string[]' is missing the following properties from type 'Buffer<ArrayBufferLike>': subarray, write, toJSON, equals, and 73 more.ts(2769)
+         */
       } catch (error) {
         return null;
       }
@@ -85,7 +92,7 @@ export const authConfig = {
     },
     async session({ session, token }) {
       if (token?.accessToken) {
-        session.accessToken = token.accessToken;
+        session.accessToken = token.accessToken; // Error: Property 'accessToken' does not exist on type '{ user: AdapterUser; } & AdapterSession & Session'.ts(2339)
       }
       return session;
     }

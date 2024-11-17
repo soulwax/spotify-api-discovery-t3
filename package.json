@@ -17,6 +17,7 @@
     "preview": "next build && next start",
     "start": "next start --turbo --port 3310",
     "dev": "next dev --turbo --port 3310",
+    "pm2:dev": "pm2 start npm --name spotify-api-discovery-t3 -- run dev",
     "typecheck": "tsc --noEmit",
     "generate-secret": "tsx scripts/generate-apple-secret.mts"
   },
