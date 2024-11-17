@@ -18,7 +18,7 @@
     "start": "next start --turbo --port 3310",
     "dev": "next dev --turbo --port 3310",
     "typecheck": "tsc --noEmit",
-    "generate-secret": "node --import=./scripts/register.js scripts/generate-apple-secret.mts"
+    "generate-secret": "tsx scripts/generate-apple-secret.mts"
   },
   "dependencies": {
     "@auth/core": "^0.37.4",
