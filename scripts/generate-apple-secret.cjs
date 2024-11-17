@@ -4,10 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 // Replace these with your values
-const teamId = 'YOUR_TEAM_ID'; // Found in your Apple Developer account
+const teamId = 'YN3H99VRQV'; // Found in your Apple Developer account
 const clientId = 'org.bluesix.spotify.service'; // Your Services ID
-const keyId = 'YOUR_KEY_ID'; // The ID of the key you created
-const keyPath = path.join(__dirname, 'AuthKey_XXXXX.p8'); // Path to your downloaded key file
+const keyId = 'ZW7ACH6WX5'; // The ID of the key you created
+const keyPath = path.join(__dirname, '../keys/AuthKey_ZW7ACH6WX5.p8'); // Path to your downloaded key file
 
 const key = fs.readFileSync(keyPath);
 

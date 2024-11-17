@@ -1,8 +1,11 @@
 .
 ├── drizzle
+│   ├── 0000_auth_schema.sql
 │   ├── 0000_square_cable.sql
+│   ├── 0001_premium_onslaught.sql
 │   └── meta
 │       ├── 0000_snapshot.json
+│       ├── 0001_snapshot.json
 │       └── _journal.json
 ├── drizzle.config.ts
 ├── next.config.js
@@ -14,6 +17,8 @@
 ├── public
 │   └── favicon.ico
 ├── README.md
+├── scripts
+│   └── generate-apple-secret.cjs
 ├── src
 │   ├── app
 │   │   ├── api
@@ -24,10 +29,15 @@
 │   │   │       └── [trpc]
 │   │   │           └── route.ts
 │   │   ├── _components
-│   │   │   └── post.tsx
+│   │   │   ├── post.tsx
+│   │   │   └── ui
+│   │   │       └── card.tsx
 │   │   ├── layout.tsx
-│   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   └── providers.tsx
 │   ├── env.js
+│   ├── lib
+│   │   └── utils.ts
 │   ├── server
 │   │   ├── api
 │   │   │   ├── root.ts
@@ -42,13 +52,17 @@
 │   │       └── schema.ts
 │   ├── styles
 │   │   └── globals.css
-│   └── trpc
-│       ├── query-client.ts
-│       ├── react.tsx
-│       └── server.ts
+│   ├── trpc
+│   │   ├── query-client.ts
+│   │   ├── react.tsx
+│   │   └── server.ts
+│   ├── types
+│   │   └── next-auth.d.ts
+│   └── utils
+│       └── spotify.ts
 ├── start-database.sh
 ├── tailwind.config.ts
 ├── tree.txt
 └── tsconfig.json
 
-18 directories, 33 files
+23 directories, 42 files
