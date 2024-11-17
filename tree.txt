@@ -1,0 +1,54 @@
+.
+├── drizzle
+│   ├── 0000_square_cable.sql
+│   └── meta
+│       ├── 0000_snapshot.json
+│       └── _journal.json
+├── drizzle.config.ts
+├── next.config.js
+├── next-env.d.ts
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.js
+├── prettier.config.js
+├── public
+│   └── favicon.ico
+├── README.md
+├── src
+│   ├── app
+│   │   ├── api
+│   │   │   ├── auth
+│   │   │   │   └── [...nextauth]
+│   │   │   │       └── route.ts
+│   │   │   └── trpc
+│   │   │       └── [trpc]
+│   │   │           └── route.ts
+│   │   ├── _components
+│   │   │   └── post.tsx
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── env.js
+│   ├── server
+│   │   ├── api
+│   │   │   ├── root.ts
+│   │   │   ├── routers
+│   │   │   │   └── post.ts
+│   │   │   └── trpc.ts
+│   │   ├── auth
+│   │   │   ├── config.ts
+│   │   │   └── index.ts
+│   │   └── db
+│   │       ├── index.ts
+│   │       └── schema.ts
+│   ├── styles
+│   │   └── globals.css
+│   └── trpc
+│       ├── query-client.ts
+│       ├── react.tsx
+│       └── server.ts
+├── start-database.sh
+├── tailwind.config.ts
+├── tree.txt
+└── tsconfig.json
+
+18 directories, 33 files
