@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["spotify-api-discovery-t3_*"],
+  tablesFilter: ["spotify_*"],
 } satisfies Config;

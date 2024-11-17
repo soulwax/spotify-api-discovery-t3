@@ -1,59 +1,41 @@
+// File: src/env.js
+// File: src/env.js
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
 export const env = createEnv({
-  
-  /**
-   * Specify your server-side environment variables schema here. This way you can ensure the app
-   * isn't built with invalid env vars.
-   */
   server: {
-    SPOTIFY_CLIENT_ID: z.string().min(1),
-    SPOTIFY_CLIENT_SECRET: z.string().min(1),
-    SPOTIFY_REDIRECT_URL: z.string().url(),
-    Discord_CLIENT_ID: z.string().min(1),
-    Discord_CLIENT_SECRET: z.string().min(1),
-    DISCORD_REDIRECT_URL: z.string().url(),
+    NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     NEXTAUTH_URL: z.string().url(),
     NEXTAUTH_SECRET: z.string().min(1),
-    DATABASE_URL: z.string().url(),
-    NODE_ENV: z.string()
-  },
-
-  /**
-   * Specify your client-side environment variables schema here. This way you can ensure the app
-   * isn't built with invalid env vars. To expose them to the client, prefix them with
-   * `NEXT_PUBLIC_`.
-   */
-  client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
     
+    // Spotify
+    SPOTIFY_CLIENT_ID: z.string().min(1),
+    SPOTIFY_CLIENT_SECRET: z.string().min(1),
+    
+    // Discord
+    AUTH_DISCORD_ID: z.string().min(1),
+    AUTH_DISCORD_SECRET: z.string().min(1),
+    
+    // Database
+    DATABASE_URL: z.string().url(),
   },
-
-  /**
-   * You can't destruct `process.env` as a regular object in the Next.js edge runtimes (e.g.
-   * middlewares) or client-side so we need to destruct manually.
-   */
+  
+  client: {
+    // Add client-side env vars here if needed
+  },
+  
   runtimeEnv: {
-    SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
-    SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
-    SPOTIFY_REDIRECT_URL: process.env.SPOTIFY_REDIRECT_URL,
-    Discord_CLIENT_ID: process.env.Discord_CLIENT_ID,
-    Discord_CLIENT_SECRET: process.env.Discord_CLIENT_SECRET,
-    DISCORD_REDIRECT_URL: process.env.DISCORD_REDIRECT_URL,
+    NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
+    SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
+    AUTH_DISCORD_ID: process.env.AUTH_DISCORD_ID,
+    AUTH_DISCORD_SECRET: process.env.AUTH_DISCORD_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
-    NODE_ENV: process.env.NODE_ENV
   },
-  /**
-   * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
-   * useful for Docker builds.
-   */
+  
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
-  /**
-   * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
-   * `SOME_VAR=''` will throw an error.
-   */
   emptyStringAsUndefined: true,
 });

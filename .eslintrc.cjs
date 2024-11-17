@@ -1,5 +1,13 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
+  "ignorePatterns": [
+    "node_modules/",
+    "scripts/",
+    "dist/",
+    "build/",
+    ".vscode/",
+    ".next/"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": true
