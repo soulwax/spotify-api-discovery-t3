@@ -5,34 +5,9 @@ import AzureADProvider from "next-auth/providers/azure-ad";
 import DiscordProvider from "next-auth/providers/discord";
 import SpotifyProvider from "next-auth/providers/spotify";
 // File: scripts/generate-apple-secret.mts
-import { config } from "dotenv";
-import { existsSync, readFileSync } from "fs";
 import jwt from "jsonwebtoken";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
 
-// Get __dirname equivalent in ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
-declare module "next-auth" {
-  interface Session {
-    accessToken?: string;
-    user: {
-      id: string;
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-    };
-  }
-}
-
-interface JWT {
-  token_type?: string;
-  expires_in?: number;
-  ext_expires_in?: number;
-  access_token?: string;
-}
 
 const scopes = [
   "user-read-email",
@@ -43,55 +18,6 @@ const scopes = [
   "playlist-read-private",
   "playlist-read-collaborative",
 ].join(" ");
-
-export const getAppleToken = async () => {
-  // Load environment variables
-  config();
-  // Validate environment variables
-  if (!process.env.AUTH_APPLE_TEAM_ID)
-    throw new Error("AUTH_APPLE_TEAM_ID is not defined");
-  if (!process.env.AUTH_APPLE_ID) throw new Error("AUTH_APPLE_ID is not defined");
-  if (!process.env.AUTH_APPLE_KEY_ID)
-    throw new Error("AUTH_APPLE_KEY_ID is not defined");
-
-  // Configuration values from environment
-  const teamId = process.env.AUTH_APPLE_TEAM_ID;
-  const clientId = process.env.AUTH_APPLE_ID;
-  const keyId = process.env.AUTH_APPLE_KEY_ID;
-  const keyPath = join(__dirname, `../../../keys/AuthKey_${keyId}.p8`);
-
-  // Verify key file exists
-  if (!existsSync(keyPath)) {
-    throw new Error(`Key file not found at: ${keyPath}`);
-  }
-
-  // Read the private key
-  const key = readFileSync(keyPath);
-
-  // JWT signing options
-  const options = {
-    algorithm: "ES256" as const,
-    expiresIn: "180d",
-    audience: "https://appleid.apple.com",
-    issuer: teamId,
-    subject: clientId,
-    keyid: keyId,
-  };
-
-  try {
-    return jwt.sign({}, key, options);
-  } catch (error) {
-    console.error("Error generating token:", error);
-    process.exit(1);
-  }
-
-};
-
-declare module "next-auth" {
-  interface Session {
-    accessToken?: string;
-  }
-}
 
 export const authConfig = {
   providers: [
@@ -110,28 +36,56 @@ export const authConfig = {
       tenantId: process.env.AZURE_AD_TENANT_ID,
       authorization: {
         params: {
-          scope: "openid profile email User.Read"
+          scope: "openid profile email offline_access",
         }
+      },
+      client: {
+        token_endpoint_auth_method: 'client_secret_post'
       }
     }),
+
     AppleProvider({
       clientId: process.env.AUTH_APPLE_ID!,
-      clientSecret: await getAppleToken(),
+      clientSecret: process.env.AUTH_APPLE_SECRET!,
     }),
   ],
+
+
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60, // 24 hours
+  },
+
+  jwt: {
+    // Use a synchronous secret for development
+    secret: process.env.NEXTAUTH_SECRET,
+    // For production, use encryption keys
+    encode: async ({ secret, token }) => {
+      if (!token) return "";
+      return jwt.sign(token, secret);
+    },
+    decode: async ({ secret, token }) => {
+      if (!token) return null;
+      try {
+        return jwt.verify(token, secret);
+      } catch (error) {
+        return null;
+      }
+    }
+
+  },
   callbacks: {
-    jwt: async ({ token, account }) => {
-      if (account) {
-        token.token_type = account.token_type;
-        token.expires_in = account.expires_in;
-        token.ext_expires_in = account.ext_expires_in;
-        token.access_token = account.access_token;
+    // Simplified callback to handle just what we need
+    async jwt({ token, account }) {
+      if (account?.access_token) {
+        token.accessToken = account.access_token;
       }
       return token;
     },
-    session: async ({ session, token }) => {
-      if (token) {
-        session.accessToken = token.access_token;
+    async session({ session, token }) {
+      if (token?.accessToken) {
+        session.accessToken = token.accessToken;
       }
       return session;
     }
