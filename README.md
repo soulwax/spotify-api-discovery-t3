@@ -7,9 +7,9 @@ Apple doesn't work yet because it's a piece of shit.
 
 - Authentication via multiple providers [Spotify, Discord, Azure AD, Apple]
 - Spotify API integration with extensive scope permissions
-- Advanced playback controls and playlist management
+- Advanced playback controls and playlist management (not integrated)
 - Type-safe API calls with tRPC
-- Modern UI with Tailwind CSS
+- Modern UI with Tailwind CSS (not a feature)
 - Lots of .ENV variables lol have fun setting this shit up.
 
 ## Tech Stack
