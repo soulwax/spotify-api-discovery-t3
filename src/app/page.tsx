@@ -68,7 +68,7 @@ export default function Home() {
           {/* Microsoft Button */}
           <button
             className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#2F2F2F] px-6 py-3 font-semibold text-white transition-all hover:bg-[#1F1F1F] focus:outline-none focus:ring-2 focus:ring-[#2F2F2F] focus:ring-offset-2"
-            onClick={() => void signIn("azure-ad")}
+            onClick={() => void signIn("microsoft")}
           >
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 23 23">
               <path d="M11.4 24H0l11.4-11.4L24 24zm0-24L0 11.4V0h11.4L24 12.6V0z"/>
