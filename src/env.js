@@ -1,5 +1,4 @@
 // File: src/env.js
-// File: src/env.js
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
@@ -17,6 +16,11 @@ export const env = createEnv({
     AUTH_DISCORD_ID: z.string().min(1),
     AUTH_DISCORD_SECRET: z.string().min(1),
     
+    // Microsoft
+    AUTH_MICROSOFT_ID: z.string().min(1),
+    AUTH_MICROSOFT_SECRET: z.string().min(1),
+    AUTH_MICROSOFT_TENANT: z.string().min(1),
+    
     // Database
     DATABASE_URL: z.string().url(),
   },
@@ -33,6 +37,9 @@ export const env = createEnv({
     SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
     AUTH_DISCORD_ID: process.env.AUTH_DISCORD_ID,
     AUTH_DISCORD_SECRET: process.env.AUTH_DISCORD_SECRET,
+    AUTH_MICROSOFT_ID: process.env.AUTH_MICROSOFT_ID,
+    AUTH_MICROSOFT_SECRET: process.env.AUTH_MICROSOFT_SECRET,
+    AUTH_MICROSOFT_TENANT: process.env.AUTH_MICROSOFT_TENANT,
     DATABASE_URL: process.env.DATABASE_URL,
   },
   
