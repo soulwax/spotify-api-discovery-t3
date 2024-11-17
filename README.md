@@ -17,7 +17,7 @@ Apple doesn't work yet because it's a piece of shit.
 - **Framework**: Next.js 15
 - **Language**: TypeScript
 - **Authentication**: NextAuth.js v5 Beta
-- **Database**: PostgreSQL with Drizzle ORM
+- **Database**: PostgreSQL with Drizzle ORM (not used meaningfully)
 - **Styling**: Tailwind CSS
 - **Package Manager**: pnpm
 
