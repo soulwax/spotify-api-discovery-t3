@@ -2,11 +2,14 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 // Replace these with your values
-const teamId = 'YN3H99VRQV'; // Found in your Apple Developer account
-const clientId = 'org.bluesix.spotify.service'; // Your Services ID
-const keyId = 'ZW7ACH6WX5'; // The ID of the key you created
+const teamId = process.env.AUTH_APPLE_TEAM_ID; // Found in your Apple Developer account
+const clientId = process.env.AUTH_APPLE_ID; // Your Services ID
+const keyId = process.env.AUTH_APPLE_KEY_ID; // The ID of the key you created
 const keyPath = path.join(__dirname, '../keys/AuthKey_ZW7ACH6WX5.p8'); // Path to your downloaded key file
 
 const key = fs.readFileSync(keyPath);
