@@ -37,6 +37,6 @@
     "**/*.cjs",
     "**/*.js",
     ".next/types/**/*.ts"
-  ],
+, "scripts/generate-apple-secret.mts"  ],
   "exclude": ["node_modules"]
 }

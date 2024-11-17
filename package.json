@@ -17,7 +17,8 @@
     "preview": "next build && next start",
     "start": "next start --turbo --port 3310",
     "dev": "next dev --turbo --port 3310",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate-secret": "node --import=./scripts/register.js scripts/generate-apple-secret.mts"
   },
   "dependencies": {
     "@auth/core": "^0.37.4",
@@ -43,7 +44,7 @@
   "devDependencies": {
     "@types/eslint": "^8.56.10",
     "@types/jsonwebtoken": "^9.0.7",
-    "@types/node": "^20.14.10",
+    "@types/node": "^20.17.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
@@ -58,6 +59,8 @@
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.5.3"
   },
   "ct3aMetadata": {
